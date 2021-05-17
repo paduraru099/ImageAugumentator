@@ -37,31 +37,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Razvan:: adaugare tema la navbar, 
-const theme = createMuiTheme({
-  typography: {
-    fontFamily: [
-      "Montserrat",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    fontWeightRegular: "bolder",
-    fontSize: 20,
-  },
-});
+
 
 export const NavbarNotLogged: React.FunctionComponent<{}> = () => {
   //incarca CSS-ul
-  const classes = useStyles(theme);
+  const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
+    
+      <div>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Button color="inherit" className={classes.menuButton}>
@@ -76,6 +60,7 @@ export const NavbarNotLogged: React.FunctionComponent<{}> = () => {
           </Button>
         </Toolbar>
       </AppBar>
-    </ThemeProvider>
+      </div>
+
   );
 };

@@ -1,4 +1,4 @@
-import { Button, Grid, makeStyles, TextField,LinearProgress, InputAdornment, IconButton } from "@material-ui/core";
+import { Button, Grid, makeStyles, TextField,LinearProgress, InputAdornment, IconButton, Paper } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { LoginInterface } from "../Models/Interfaces";
 import AccountService from "../Services/AccountService";
@@ -6,6 +6,7 @@ import {useHistory} from "react-router"
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { ViewErrorInfo } from "./ViewErrorInfo";
+import Image from "../Images/logo.png";
 //Creez un obiect CSS
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,26 +20,28 @@ const useStyles = makeStyles((theme) => ({
   form: {
      margin: theme.spacing(4),
      verticalAlign:"middle",
-     marginTop:"35%"
+     marginTop:"15%"
   },
   linearProgress: {
     marginTop:15,
     marginBottom:15
   },
   textFieldInputProps: {
-    color: "white !important",
+    color: "black !important",
     width: "100%",
     background: "none",
     border: "none",
-    textTransform: "uppercase",
     outline: "none",
     transition: "border-color .2s",
-    borderColor: "green",
-    borderBottomColor: "white",
+    fontSize: 30
+
+   
   },
   textField: {
     color: "white !important",
     textTransform: "uppercase",
+    background: "none",
+    
     "& .MuiFormLabel-root": {
       color: "#666",
     },
@@ -51,9 +54,38 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
       borderBottomColor: "white",
     },
+    "& .MuiOutlinedInput-notchedOutline":{
+      border: "1px solid black"
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid black",
+      background: "none",
+    },
+    
+ 
+    
 
     fontFamily: "Montserrat",
   },
+
+  button:{
+    border: '1px solid ',
+    background: 'none',
+    fontSize: 20,
+    cursor: 'pointer',
+    padding: '10px 20px',
+    transition: '0.8s',
+    color: '#000',
+    borderColor: '#000',
+    '&:hover': {
+      color: '#fff',
+      background: '#000',
+      borderColor: '#000'
+    },
+    
+
+  }
+  
 }));
 
 export const Login: React.FunctionComponent<any> = () => {
@@ -98,7 +130,7 @@ export const Login: React.FunctionComponent<any> = () => {
          .catch(err => {
 
             setHasError(true);
-            setErrorMessage(err.message)
+            setErrorMessage(err.response.data)
             console.log(err)
          })
          .finally( () =>{
@@ -123,8 +155,10 @@ export const Login: React.FunctionComponent<any> = () => {
     //impart ecranul in 2 coloane
     <div className={classes.root + classes.gridItem}>
 
-        
+
           <div className = {classes.form}>
+          <img  style = {{width: "300px", height: "auto",  display:"block",
+            margin:"auto"}} src={Image} />
             <ViewErrorInfo 
               hasError = {hasError}
               errorMessage = {errorMessage}
@@ -143,9 +177,10 @@ export const Login: React.FunctionComponent<any> = () => {
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
+              inputProps={{ className: classes.textFieldInputProps }}
             />
             <TextField
-              className = {classes.textField}
+             
               variant="outlined"
               margin="normal"
               fullWidth
@@ -173,13 +208,15 @@ export const Login: React.FunctionComponent<any> = () => {
                     </IconButton>
                   </InputAdornment>
                 )
-              }}
+              }} 
+              inputProps = {{ className: classes.textFieldInputProps}}
+              className = {classes.textField}
             />
             <div style={{"textAlign":"center",marginTop: 10, marginBottom: 10}} >
-              <a href="/account/forgotpass">Forgot password? Click here!</a>
+              <a href="/account/forgotpass" style = {{textDecoration: "none", color: "black"}}>Forgot password? Click here!</a>
             </div>
             {LinearFeedback()}
-            <Button fullWidth type="submit" variant="contained" color="primary"  onClick={onSubmit}>
+            <Button fullWidth type="submit" variant="contained" color="primary"  onClick={onSubmit} className={classes.button}>
                Sign in
             </Button>
           </div>

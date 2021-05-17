@@ -6,13 +6,44 @@ import {
   Slider,
   Typography,
   Input,
+  makeStyles,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import FileUploadService from "../Services/FileUploadService";
 import {DropzoneDialog} from 'material-ui-dropzone'
 import AccountService from "../Services/AccountService";
 
+
+const useStyles = makeStyles((theme) => ({
+  button:{
+    border: '1px solid ',
+    background: 'none',
+    fontSize: 20,
+    cursor: 'pointer',
+    padding: '10px 20px',
+    transition: '0.8s',
+    '&:hover': {
+      color: '#fff',
+      background: '#000',
+      borderColor: '#000'
+    },
+    '&:before':{
+      content: '',
+      position: 'absolute',
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "black"
+
+    }
+
+  }
+  
+ 
+}));
 export const Home: React.FunctionComponent<{}> = () => {
+
+  const classes = useStyles();
   const [selectedFile, setSelectedFile] = useState<any>();
   const [fileName, setFileName] = useState<string>("");
   const [isClaheChecked, setIsClaheChecked] = useState<boolean>(false);
@@ -230,7 +261,7 @@ export const Home: React.FunctionComponent<{}> = () => {
         </div>
         {renderFlipComponent}
         {renderEraseComponent}
-        <Button onClick={onFileUpload}>Send</Button>
+        <Button onClick={onFileUpload} className={classes.button}>Send</Button>
       </CardContent>
     </Card>
   );

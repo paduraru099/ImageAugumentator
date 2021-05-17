@@ -31,6 +31,8 @@ import AccountService from "../Services/AccountService";
 import { Admin } from "./Admin";
 import { Contact } from "./Contact";
 import { Home } from "./Home";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Logo from "../Images/logo_side.png";
 
 const drawerWidth = 240;
 
@@ -70,10 +72,37 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: drawerWidth,
     },
+    list:{
+      fontWeightRegular: "bolder"
+    },
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    logoutButton:{
+      border: '1px solid ',
+      background: 'none',
+      fontSize: 20,
+      cursor: 'pointer',
+      textAlign: 'center',
+      padding: '10px 20px',
+      transition: '0.8s',
+      '&:hover': {
+        color: '#fff',
+        background: '#000',
+        borderColor: '#000'
+      },
+      '&:before':{
+        content: '',
+        position: 'absolute',
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "black"
+  
+      }
+  
+    }
   })
 );
 
@@ -135,16 +164,16 @@ export const MainContainer: React.FunctionComponent<{}> = () => {
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <List>
+      <List className={classes.list}>
         <ListItem button key="home" onClick={() => history.push("/app")}>
           <ListItemIcon>
-            <HomeIcon></HomeIcon>
+            <HomeIcon style={{color:'black'}} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
         <ListItem button key="stats" onClick={() => history.push("/app/stats")}>
           <ListItemIcon>
-            <EqualizerIcon></EqualizerIcon>
+            <EqualizerIcon  style={{color:'black'}} />
           </ListItemIcon>
           <ListItemText primary="Stats" />
         </ListItem>
@@ -154,7 +183,7 @@ export const MainContainer: React.FunctionComponent<{}> = () => {
           onClick={() => history.push("/app/contact")}
         >
           <ListItemIcon>
-            <PermContactCalendarIcon></PermContactCalendarIcon>
+            <PermContactCalendarIcon style={{color:'black'}} />
           </ListItemIcon>
           <ListItemText primary="Contact" />
         </ListItem>
@@ -167,15 +196,19 @@ export const MainContainer: React.FunctionComponent<{}> = () => {
               onClick={() => history.push("/app/admin")}
             >
               <ListItemIcon>
-                <SupervisorAccountIcon></SupervisorAccountIcon>
+                <SupervisorAccountIcon style={{color:'black'}} />
               </ListItemIcon>
               <ListItemText primary="Admin" />
             </ListItem>
           ) : null
         }
         {/* Razvan:: am adaugat reload la pagina dupa logout */}
-        <ListItem button key="logout" onClick={() => {AccountService.logout(); window.location.reload(false)}}>
-          <ListItemText>LOGOUT</ListItemText>
+
+        <ListItem button key="stats" onClick={() => {AccountService.logout(); window.location.reload(false)}} >
+          <ListItemIcon>
+            <ExitToAppIcon  style={{color:'black'}} />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
         </ListItem>
       </List>
     </div>
@@ -196,6 +229,7 @@ export const MainContainer: React.FunctionComponent<{}> = () => {
       />
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
+        <img src={Logo} style={{width: "300px", height: "auto"}} />
         <Toolbar>
           <IconButton
             color="inherit"
@@ -209,6 +243,7 @@ export const MainContainer: React.FunctionComponent<{}> = () => {
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>
+        
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer

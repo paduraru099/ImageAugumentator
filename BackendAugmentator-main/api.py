@@ -175,7 +175,7 @@ def login():
         return jsonify({'AccessToken': access_token,'RefreshToken':refresh_token})
 
     # parola nu e corecta, returnam 401
-    return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required"'})
+    return make_response('Wrong email or password', 401, {'WWW-Authenticate': 'Basic realm="Login required"'})
 
 
 @app.route("/user", methods=['GET'])
